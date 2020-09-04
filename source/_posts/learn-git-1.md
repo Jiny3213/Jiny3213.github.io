@@ -26,6 +26,7 @@ git add <file>
 ```
 git commit -m <message>
 ``` 
+> 如果message含有空格, 则要使用双引号包裹, 而不是单引号!!
 
 > `-a` 选项: a for add, 相当于自动在commit之前运行`git add`指令, 把所有已经跟踪过的文件暂存起来一起提交 
 

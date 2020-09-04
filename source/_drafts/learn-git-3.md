@@ -40,13 +40,25 @@ Your branch is behind 'origin/dev' by 19 commits, and can be fast-forwarded.
 
 但是git会在下方提示你使用git pull, pull指令相当于fetch和merge的集合体, 并不推荐使用, 因为可能你需要确认你拉回来的代码的情况, 而不是一股脑地往本地仓库中合并
 
-使用fetch而不使用merge的话, 你的本地仓库不会发生变化
+使用fetch而不使用merge的话, 你将不会看到除status之外的变化
 
 ## git merge 合并
 当你的本地仓库和远程仓库没有冲突时, git将为你自动合并代码, 但如果出现冲突, 则需要手动解决冲突才能合并
 
-这里的冲突是你本地仓库和远程仓库之间的冲突, 和工作区和暂存区无关
+比如你正在修改a文件, 但远程仓库中的a文件被同事修改了, 此时你无法merge, git提示你需要commit或stash来储存你的代码, 否则merge操作将会复写你当前正在修改的代码
 
+至于stash指令是什么, 我们稍后再谈
+```shell script
+error: Your local changes to the following files would be overwritten by merge:
+        a.txt
+Please commit your changes or stash them before you merge.
+```
+我们尝试把a文件commit到本地代码库, 再执行merge
+```shell script
+git add a && git commit -m test
+```
+
+此时再使用`git log`指令, 会发现在远程仓库的commit后面跟上了test, 而最新的commit则是一个merge的commit
 ## git push 推送代码
 将你的代码推送到远程仓库
 ```shell script
