@@ -6,7 +6,8 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo clean && hexo d -g",
-    "server": "hexo server"
+    "server": "hexo server",
+    "push": "git push origin dev"
   },
   "hexo": {
     "version": "5.1.1"

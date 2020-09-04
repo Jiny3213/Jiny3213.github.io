@@ -1,11 +1,14 @@
 ---
 title: 重新认识git【其三】远程仓库
 tags: git
+date: 2020-09-04 18:13:38
 ---
+
 ## git remote 查看远程仓库
 列出远程仓库的简称, 通常远程仓库被命名为origin
 > -v: v for verbose 列出更繁杂的信息
-> `git remote show origin` 查看origin远程仓库的详细信息
+
+
 ### 添加远程仓库
 ```shell script
 git remote add <shortname e.g. origin> <url e.g. https://github.com/yourname/somerepo.git>
@@ -17,6 +20,17 @@ git remote add <shortname e.g. origin> <url e.g. https://github.com/yourname/som
 git clone https://github.com/vuejs/vue.git
 ```
 克隆之后查看`git remote` , 你会发现origin远程仓库被默认添加了
+
+### 查看origin远程仓库的详细信息
+```
+git remote show origin
+``` 
+
+### 重命名远程仓库
+```shell script
+# 把远程仓库名从origin改为gitee (我喜欢用这种方式来区分放在gitee中的仓库)
+git remote rename origin gitee
+```
 
 ## git fetch 拉取代码
 当你第二次或以上获取远程仓库时使用, 比如vue的源码更新了, 你要拉取新的代码
@@ -53,14 +67,17 @@ error: Your local changes to the following files would be overwritten by merge:
         a.txt
 Please commit your changes or stash them before you merge.
 ```
+
 我们尝试把a文件commit到本地代码库, 再执行merge
 ```shell script
-git add a && git commit -m test
+git commit -a -m test && git merge
 ```
 
-此时再使用`git log`指令, 会发现在远程仓库的commit后面跟上了test, 而最新的commit则是一个merge的commit
+此时再使用`git log`指令, 会发现在远程仓库的commit后面跟上了test, 而最新的commit则是一个merge的commit, git自动为我们合并了代码冲突(可能不是我们想要的处理方式)
+
 ## git push 推送代码
 将你的代码推送到远程仓库
 ```shell script
 git push <remote> <branch>
 ```
+比如本博客源码存放在dev分支, 我每次部署博客之后就会使用`git push origin dev`把博客源码推送到dev分支
