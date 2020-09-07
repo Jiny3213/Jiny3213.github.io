@@ -4,31 +4,31 @@ tags: git
 date: 2020-09-04 11:32:16
 ---
 
-## git 的三个区
+## git 的四个区域
 - 工作区: 你正在编辑的文件
 - 暂存区: git add 之后文件的所处的区域
-- git仓库: git commit 之后文件所处的区域
+- 本地仓库: git commit 之后文件所处的区域
+- 远程仓库: 如github, gitee
 
-## 概览git的lifecycle
-![git文件循环](learn-git-1/lifecycle.png)
+![四个区域](learn-git-1/gitcyc.png)
 
-## 文件在三个区中转换的指令
-把工作区中的文件状态保存到暂存区
-
+## 文件在不同区域中转换
+工作区 => 暂存区
 
 ```
 git add <file>
-``` 
-
-> `git add .` 快速地把所有文件状态保存到暂存区
-
-把暂存区的文件状态保存到git仓库
+git add . # 快速地把所有文件状态保存到暂存区
 ```
-git commit -m <message>
-``` 
-> 如果message含有空格, 则要使用双引号包裹, 而不是单引号!!
 
-> `-a` 选项: a for add, 相当于自动在commit之前运行`git add`指令, 把所有已经跟踪过的文件暂存起来一起提交 
+暂存区 => 本地仓库
+
+```
+git commit -m <message> 
+
+# -a for add, 自动在commit之前运行`git add`指令, 把所有已经跟踪过的文件暂存起来一起提交
+git commit -a -m <message>  
+```
+> 如果message含有空格, 则要使用双引号包裹, 而不是单引号!!
 
 
 ## git status 状态查询
@@ -43,23 +43,24 @@ git status 中的常见描述:
 **注意:** git不会跟踪空目录, 添加一个空目录, `git status` 命令并不会发现到, 也不会被纳入git仓库中保存[相关文章](https://www.cnblogs.com/cuihongyu3503319/p/11283347.html)
 
 ## git diff 列出差异
-列出工作区与暂存区之间的差异
-
-`--staged | --cached` 列出暂存区与最后一次提交的git仓库之间的差异
+```shell script
+git diff # 工作区 <=> 暂存区
+git diff <--staged | --cached> # 暂存区 <=> 最近一次commit
+git diff HEAD # 工作区 <=> 最近一次commit
+```
 
 ## git rm 移除文件
 此指令将会把文件从工作区, 暂存区中移除, 如果在上一个版本库中存在这个文件, 回溯版本仍然可以找回这个文件, 可以使用类似.gitignore的匹配规则
 ```
 git rm <filePath>
+--cached # 只删除暂存区中的文件, 而不删除工作区中的文件, 主要用于忘记配置gitignore的情况
 ```
-
-> `--cached` 选项: 只删除暂存区中的文件, 而不删除工作区中的文件, 主要用于忘记配置gitignore的情况
 
 ## git mv 移动文件
 该指令也用于重命名文件
 ```
 git mv <fileForm> <fileTo>
-``` 
+```
 
 ## .gitignore 文件
 在项目根目录下创建`.gitignore`文件, 描述了git需要忽略的文件
