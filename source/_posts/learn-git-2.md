@@ -4,8 +4,11 @@ date: 2020-09-04 12:46:41
 tags: git
 ---
 ## git log 查看提交历史
-这个指令太多选项了, 说了也记不住, 也不一定用的上
-
+常见指令
+```
+git log dev --not master # 列出 dev 分支中 master 未包含的提交
+```
+待补充
 ## 撤销操作
 
 ### 修补 git commit 
