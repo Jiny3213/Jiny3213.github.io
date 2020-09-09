@@ -1,0 +1,36 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>移动端适配整屏滚动页面【以秀米为例】 | Jiny3213 no blog</title><script src="https://cdn.bootcss.com/valine/1.4.4/Valine.min.js"></script><link rel="stylesheet" href="/css/arknights.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css"><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.ttf");
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><meta name="generator" content="Hexo 5.1.1"></head><body><header><nav><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a></nav></header><main><article><div id="post-bg"><div id="post-title"><div id="post-info"><span>date:<time datetime="2020-09-09T10:07:04.000Z" id="date"> 2020-09-09</time></span><br><span>updated:<time datetime="2020-09-09T10:07:04.279Z" id="updated"> 2020-09-09</time></span></div><h1>移动端适配整屏滚动页面【以秀米为例】</h1><hr></div><div id="post-content"><p>秀米H5通常会使用一次滚动一个屏幕的营销页面, 但是这样的页面是怎样适配不同尺寸的手机的呢?</p>
+<p>由于工作中需要做类似的营销页面, 而设计师只给了375*667分辨率下的设计图, 如何化腐朽为神奇, 把僵硬的设计设配到iphone XS MAX 这种超高分辨率手机上面呢？</p>
+<p>作为一个没有任何苹果设备的前端，真的很难给苹果设备做适配，总所周知微信在ios上的内置浏览器和安卓的实现不太一样，会产生各种离奇bug，再加上新的苹果手机普遍分辨率高，长宽比高，适配起来苦不堪言</p>
+<p>chrome device mode 虽然可以模拟各种手机屏幕的比例，但却模拟不了微信在ios上的bug, 也模拟不了各种顶栏, 因此在高度上减少44px来模拟顶栏会比较接近用户使用时的屏幕尺寸</p>
+<blockquote>
+<p>saferi的内核是webkit, chrome的内核是由webkit派生的blink, 因此微信浏览器的bug是微信的问题, 而不是苹果的问题</p>
+</blockquote>
+<h2 id="秀米是怎样做自适应的"><a href="#秀米是怎样做自适应的" class="headerlink" title="秀米是怎样做自适应的"></a>秀米是怎样做自适应的</h2><p>秀米基本上都是通过在body上设置一个动态的style: fontSize, 页面元素使用em来规定大小和定位来做到自适应的, fontSize 变化范围在2-20px之间</p>
+<ul>
+<li>上下留白, 当页面过长时, 在页面上下方产生留白 <a target="_blank" rel="noopener" href="https://c.xiumi.us/stage/v5/3FOLa/234984017#/">秀米的一个例子</a></li>
+<li>上下留空, 空出来的与背景颜色一致, 没有白色留白那么大的违和感<a target="_blank" rel="noopener" href="https://c.xiumi.us/stage/v5/3FOLa/234983252#/">秀米中秋营销页面</a></li>
+<li>页面中加框的设计, 四周留空, 相当于框住了一个固定比例的区域, 在手机中把这个区域居中即可</li>
+<li>传统的滚动条, 抛弃了一个滚动一屏的华丽效果, 保留了花里胡哨的出现动画</li>
+</ul>
+<h2 id="秀米设计上的缺点"><a href="#秀米设计上的缺点" class="headerlink" title="秀米设计上的缺点"></a>秀米设计上的缺点</h2><ul>
+<li>花里胡哨转场动画, 有些页面从空白到动画走完显示出所有内容要用5s, 转场的时间都够我读完一个页面的内容了, 严重阻碍阅读的效率</li>
+<li>每个页面转场动画都一模一样, 就算做的再好看也会审美疲劳, 再加上超长的转场时间, 看两页就想退出了</li>
+<li>默认开启的音乐, 毫无意义, 吵的一匹, 虽然我手机常年媒体静音, 但我看图文信息的时候绝对不需要有音乐</li>
+</ul>
+<blockquote>
+<p>看秀米的页面就图一乐, 真要做一屏页面还是要用swiper</p>
+</blockquote>
+<p>最后, 由于设计实在是太过僵硬, 存在大量贴边内容(无法居中留空两边), 为了照顾超长的手机, 就改成传统滚动页面了</p>
+<div id="paginator"></div></div><div id="post-footer"><hr><a href="/2020/09/09/chrome-device-mode-bug/">← Prev chrome模拟移动设备-解决白边bug</a><span style="color: #fe2"> | </span><a href="/2020/09/07/learn-git-6-rebase/">重新认识git【其六】变基 Next →</a><hr></div><div id="bottom-btn"><a id="to-index" href="#post-index" title="index">≡</a><a id="to-top" href="#post-title" title="to top">∧</a></div><div id="Valine"></div><script>new Valine({
+ el: '#Valine'
+ , appId: ''
+ , appKey: ''
+ , placeholder: '此条评论委托企鹅物流发送'
+})</script></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/"> Dr.Jiny</a></h1><section id="total"><a id="total-archives" href="/archives"><span class="total-title">Archives Total:</span><span class="total-number">10</span></a><div id="total-tags"><span class="total-title">Tags:</span><span class="total-number">3</span></div><div id="total-categories"><span class="total-title">Categories:</span><span class="total-number">1</span></div></section></div><div id="aside-block"><h1>INDEX</h1><div id="post-index"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%80%E7%B1%B3%E6%98%AF%E6%80%8E%E6%A0%B7%E5%81%9A%E8%87%AA%E9%80%82%E5%BA%94%E7%9A%84"><span class="toc-number">1.</span> <span class="toc-text">秀米是怎样做自适应的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%80%E7%B1%B3%E8%AE%BE%E8%AE%A1%E4%B8%8A%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">秀米设计上的缺点</span></a></li></ol></div></div><footer><nobr><span class="text-title">©</span><span class="text-content">1970 to 2020</span></nobr><wbr><nobr><span class="text-title">ICP</span><span class="text-content">——备案号——</span></nobr><wbr><wbr><nobr>published with&nbsp;<a target="_blank" rel="noopener" href="http://hexo.io">Hexo&nbsp;</a></nobr><wbr><nobr>Theme&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknight&nbsp;</a></nobr><wbr><nobr>by&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/arknights.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script></body></html>
