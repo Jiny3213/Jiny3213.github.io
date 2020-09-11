@@ -4,11 +4,10 @@ date: 2020-09-04 12:46:41
 tags: git
 ---
 ## git log 查看提交历史
-常见指令
 ```
-git log dev --not master # 列出 dev 分支中 master 未包含的提交
+git log --stat # 查看简要的统计信息(一些加号和减号表示该提交对前一次提交的修改)
+git log --pretty=oneline # 把一个提交列在一行的简要信息
 ```
-待补充
 ## 撤销操作
 
 ### 修补 git commit 
