@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>在既有项目中引入 vuetify 的问题 | Jiny3213 no blog</title><script src="https://cdn.bootcss.com/valine/1.4.4/Valine.min.js"></script><link rel="stylesheet" href="/css/arknights.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css"><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.ttf");
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><meta name="generator" content="Hexo 5.1.1"></head><body><header><nav><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a></nav></header><main><article><div id="post-bg"><div id="post-title"><div id="post-info"><span>date:<time datetime="2020-09-15T08:26:31.000Z" id="date"> 2020-09-15</time></span><br><span>updated:<time datetime="2020-09-15T08:26:31.548Z" id="updated"> 2020-09-15</time></span></div><h1>在既有项目中引入 vuetify 的问题</h1><hr></div><div id="post-content"><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>假设你有一个既有的项目(这个项目还没引入过ui组件库), 需要使用pagination这个组件, 你可能会想到element的按需引入, 于是你尝试按需引入pagination, 发现总会报错, 但是引入按钮就啥事都没有; 其实并不需要考虑单独引入, tree-sharking默认会在vue-cli插件中开启</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>于是你开始使用 <code>vue add vuetify</code> 安装vuetify插件, 插件给你三个选项:</p>
+<ul>
+<li>推荐的方式</li>
+<li>原型</li>
+<li>手动添加</li>
+</ul>
+<h3 id="推荐的方式"><a href="#推荐的方式" class="headerlink" title="推荐的方式"></a>推荐的方式</h3><p>你选择了推荐的方式, vuetify把你的app.vue给覆盖了! 很生气, 于是你回退版本</p>
+<h3 id="手动添加的方式"><a href="#手动添加的方式" class="headerlink" title="手动添加的方式"></a>手动添加的方式</h3><p>你选择了手动添加的方式, lang选择了中文, 避免了覆盖app.vue和创建没用的HelloWord.vue, 但是你发现i18n中缺少pagination相关的图标, 你的pagination没有了左右箭头, active状态还没有颜色, 而且你的vue.config.js中的配置被删除了一部分! </p>
+<p>你很生气, 把vuetify.js中的选项清空了, 这次看到左右箭头了, 但是pagination的active状态还是没有颜色, 设置color也不能改变颜色; 你开始怀疑人生, 打开了以前使用的vuetify项目(这个项目从一开始就使用vuetify), 在这个项目中使用pagination, 一切如常</p>
+<p>查阅资料发现, pagination的active颜色建立在根元素使用的v-app上, 但是你不想改变原有的项目, 于是你回退版本</p>
+<h2 id="原型的方式"><a href="#原型的方式" class="headerlink" title="原型的方式"></a>原型的方式</h2><p>再试试第二个选项吧, 第二个选项还是改变了你的app.vue并添加了HelloWorld, 但他没有修改你的vue.config.js, 而且没有通过cdn的方式来引入样式和字体, 而是直接在main.js中引入, 而且没有使用vuetify-loader; 在vuetify.js中引入的路径也不一样; 这些配置似乎都很奇怪, 但又不知道奇怪在哪, 而且这仍然没有解决你的问题</p>
+<p>破罐子破摔, 你把app.vue的根元素换成了v-app, 哈哈, pagination有颜色了; 但是你项目中的某些元素由于全局的样式而改变了, 导致很多地方页面崩坏, 你又不得不把v-app去掉</p>
+<p>最后, 祭出最终武器<code>::v-deep</code>来手动改变pagination的背景颜色, 你感觉很恶心, 为了用这个小组件, 引入了一个巨大的ui库, 还要手动修改样式, 这什么鬼</p>
+<p>但是如果后续要使用更多组件的话还是值得的</p>
+<blockquote>
+<p>总结: 在既有项目上使用vuetify会比较麻烦, 因为其对项目的侵入性很大, 而且会覆盖掉你的部分文件, 务必保存你的工作内容再引入vuetify!!</p>
+</blockquote>
+<div id="paginator"></div></div><div id="post-footer"><hr><a href="/2020/09/10/mobile-suit/">整理移动端适配常见问题 Next →</a><hr></div><div id="bottom-btn"><a id="to-index" href="#post-index" title="index">≡</a><a id="to-top" href="#post-title" title="to top">∧</a></div><div id="Valine"></div><script>new Valine({
+ el: '#Valine'
+ , appId: ''
+ , appKey: ''
+ , placeholder: '此条评论委托企鹅物流发送'
+})</script></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/"> Dr.Jiny</a></h1><section id="total"><a id="total-archives" href="/archives"><span class="total-title">Archives Total:</span><span class="total-number">12</span></a><div id="total-tags"><span class="total-title">Tags:</span><span class="total-number">3</span></div><div id="total-categories"><span class="total-title">Categories:</span><span class="total-number">1</span></div></section></div><div id="aside-block"><h1>INDEX</h1><div id="post-index"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">2.1.</span> <span class="toc-text">推荐的方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E5%8A%A8%E6%B7%BB%E5%8A%A0%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">2.2.</span> <span class="toc-text">手动添加的方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%9E%8B%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">原型的方式</span></a></li></ol></div></div><footer><nobr><span class="text-title">©</span><span class="text-content">1970 to 2020</span></nobr><wbr><nobr><span class="text-title">ICP</span><span class="text-content">——备案号——</span></nobr><wbr><wbr><nobr>published with&nbsp;<a target="_blank" rel="noopener" href="http://hexo.io">Hexo&nbsp;</a></nobr><wbr><nobr>Theme&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknight&nbsp;</a></nobr><wbr><nobr>by&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/arknights.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script></body></html>
