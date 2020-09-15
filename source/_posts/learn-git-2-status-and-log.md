@@ -1,5 +1,5 @@
 ---
-title: 重新认识git【其二】历史记录与撤销操作
+title: 重新认识git【其二】查看历史记录与状态
 date: 2020-09-04 12:46:41
 tags: git
 ---
@@ -8,6 +8,29 @@ tags: git
 git log --stat # 查看简要的统计信息(一些加号和减号表示该提交对前一次提交的修改)
 git log --pretty=oneline # 把一个提交列在一行的简要信息
 ```
+
+## git status 查看状态
+```
+git log 
+git log -s # 输出更简短的结果
+git log --pretty=oneline # 一行一个提交输出更好看的结果
+```
+
+git status 中的常见描述:
+
+`Changes not staged for commit` 代表你放在暂存区还没提交到git仓库的文件
+
+`Untracked files` 代表你在工作区而没添加到暂存区的文件
+
+> **注意:** git不会跟踪空目录, 添加一个空目录, `git status` 命令并不会发现到, 也不会被纳入git仓库中保存 [相关文章](https://www.cnblogs.com/cuihongyu3503319/p/11283347.html)
+
+## git diff 列出差异
+```
+git diff # 工作区 <=> 暂存区
+git diff <--staged | --cached> # 暂存区 <=> 最近一次commit
+git diff HEAD # 工作区 <=> 最近一次commit
+```
+
 ## 撤销操作
 
 ### 修补 git commit 

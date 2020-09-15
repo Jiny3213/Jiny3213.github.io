@@ -10,5 +10,8 @@ tags: 环境配置
 解决方法:
 
 settings => Tools => Terminal => Environment Variables => 填入`LESSCHARSET=utf-8` 或按右侧图标添加
-
+```
+# 或者直接在终端运行命令
+set LESSCHARSET=utf-8
+```
 [参考文章](https://blog.csdn.net/Xu_XiaoXiao_Ji/article/details/107719176)

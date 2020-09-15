@@ -1,5 +1,5 @@
 ---
-title: '重新认识git【其一】git中的文件流'
+title: '重新认识git【其一】几个区域和移动指令'
 tags: git
 date: 2020-09-04 11:32:16
 ---
@@ -25,30 +25,16 @@ git add . # 快速地把所有文件状态保存到暂存区
 暂存区 => 本地仓库
 
 ```
-git commit -m <message> 
+git commit -m <message> # 如果message含有空格, 则要使用双引号包裹, 而不是单引号!!
+git commit # 将会使用默认编辑器来编辑message
 
-# -a for add, 自动在commit之前运行`git add`指令, 把所有已经跟踪过的文件暂存起来一起提交
-git commit -a -m <message>  
+ 
 ```
-> 如果message含有空格, 则要使用双引号包裹, 而不是单引号!!
 
-
-## git status 状态查询
-> `-s` 选项: s for short, 可以输出更为简短的结果
-
-git status 中的常见描述:
-
-`Changes not staged for commit` 代表你放在暂存区还没提交到git仓库的文件
-
-`Untracked files` 代表你放在工作区而没添加到暂存区的文件
-
-**注意:** git不会跟踪空目录, 添加一个空目录, `git status` 命令并不会发现到, 也不会被纳入git仓库中保存[相关文章](https://www.cnblogs.com/cuihongyu3503319/p/11283347.html)
-
-## git diff 列出差异
-```shell script
-git diff # 工作区 <=> 暂存区
-git diff <--staged | --cached> # 暂存区 <=> 最近一次commit
-git diff HEAD # 工作区 <=> 最近一次commit
+工作区 => 暂存区 => 本地仓库
+```
+# -a for add, 自动在commit之前运行`git add`指令, 把所有已经跟踪过的文件暂存起来一起提交
+git commit -a -m <message> 
 ```
 
 ## git rm 移除文件
