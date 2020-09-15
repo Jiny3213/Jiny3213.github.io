@@ -5,12 +5,14 @@ date: 2020-09-04 11:32:16
 ---
 
 ## git 的四个区域
-- 工作区: 你正在编辑的文件
-- 暂存区: git add 之后文件的所处的区域
-- 本地仓库: git commit 之后文件所处的区域
-- 远程仓库: 如github, gitee
+- 工作区(workspace): 你正在编辑的文件
+- 暂存区(index): git add 之后文件的所处的区域
+- 本地仓库(repository): git commit 之后文件所处的区域
+- 远程仓库(remote): 如github, gitee
 
-![四个区域](learn-git-1/gitcyc.png)
+<div style="background-color: #ffffff">
+<img src="learn-git-1/gitcyc.png" />
+</div>
 
 ## 文件在不同区域中转换
 工作区 => 暂存区
