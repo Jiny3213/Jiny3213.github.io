@@ -9,6 +9,53 @@ git log --stat # 查看简要的统计信息(一些加号和减号表示该提�
 git log --pretty=oneline # 把一个提交列在一行的简要信息
 ```
 
+### 查看不同分支的提交的差异
+两点语法
+```
+git log master..dev # 查看在 dev 分支而不在 master 分支中的提交
+git log origin/master..HEAD # 查看在当前分支而不在远程仓库 master 分支中的提交
+
+# 以下三种功能相同, 语法不同, 而后两个语法可以选择多个分支
+git log refA..refB
+git log ^refA refB 
+git log refB --not refA
+```
+
+三点语法
+```
+git log master...dev # 查看在两个分支 之一 包含但又不被两者同时包含的提交
+--left-right # 这个选项可以使得打印的结果标示该提交属于左右哪个分支
+```
+
+## git show 查看提交详情
+使用前4个以上没有歧义的SHA-1字符串来表示某个提交
+```
+git show 1e08ad
+```
+
+### 基于某个提交的历史提交
+`HEAD` 代表当前分支, 可以用提交对应的 SHA-1 字符串代替, 指代某个提交
+
+`^` 标识符用于查找第一二父提交, `~` 标识符用于查找历史提交记录
+```
+# 合并提交的第一父提交是你合并时所在分支（通常为 master），而第二父提交是你所合并的分支（例如 dev）
+# 非合并提交没有第二父提交
+git show HEAD # 查看最近一次提交
+git show HEAD^ # 查看最近一次提交的父提交, 在window上要用^^代替^, 或使用双引号"HEAD^"
+git show HEAD^2 # 查看最近一次提交的第二父提交
+
+# 查找历史最常用~
+git show HEAD~n # 查看最近一次提交的前n次提交
+```
+
+## reflog 引用日志
+每当HEAD指向的位置发生变化, 就被引用日志记录下来, 这个日志只存在于本机, 相当于linux的shell历史记录, 只有你自己能看的见
+```
+git reflog
+```
+
+这个命令的一个重要的用途是在你回滚版本时, 可以找回你后面的版本的SHA-1
+
 ## git status 查看状态
 ```
 git log 
@@ -29,44 +76,22 @@ git status 中的常见描述:
 git diff # 工作区 <=> 暂存区
 git diff <--staged | --cached> # 暂存区 <=> 最近一次commit
 git diff HEAD # 工作区 <=> 最近一次commit
+
+git diff master..dev # 列出两个分支的差异, 也可以是两个提交的差异
+git diff master..origin/master # 列出本地仓库与远程仓库的差异
+git diff master...test # 找出 master , test 的共有父分支和 test 分支之间的差异
+```
+[https://www.cnblogs.com/poloyy/p/12214435.html](https://www.cnblogs.com/poloyy/p/12214435.html)
+
+## git grap 查找信息
+```
+git grap abc # 查找版本库中的abc字符串, 默认会查找工作目录的文件
 ```
 
-## 撤销操作
-
-### 修补 git commit 
-在commit之后, 发现还有某个文件没有添加进去, 于是你需要这个commit的选项 `--amend`
-
-```shell script
-git commit -m 'add a post'
-# 忘记添加图片了
-git add forget.jpg
-git commit --amend
+查看某个字符串在哪个提交里引入了
 ```
-使用这个commit指令之后, 会弹出默认的文本编辑器, 你可以在里面修改commit的message, 比如上面的`add a post`, 可以把它改为`add a post with image`
-
-之后再使用`git log`指令查看历史记录, 发现只有`add a post with image`而没有`add a post`, 因为我们用修补了这个commit, 就不会因为遗漏某些东西而产生多余的commit了
-
-### git reset 
-暂存区 => 工作区(不会覆盖工作区)
-```shell script
-git reset HEAD should_not_add.md
+git log -S submit --oneline # 查看sumit是什么时候引入的
 ```
 
-### git checkout
-本地仓库 => 工作区(会覆盖工作区, 谨慎操作)
 
-当我们修改了某个文件时, 查看`git status`会有如下提示
 
-```
-(use "git restore <file>..." to discard changes in working directory)
-    modified:   source/_posts/learn-git-2.md
-```
-
-其中提示你使用`restore`指令来撤销对工作区的修改, 执行这个命令可以把工作区的某个文件回退到上一个版本
-
-在以前, 这里提示的命令是`checkout`, 很多比较旧的教程 [包括git官方教程](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%92%A4%E6%B6%88%E6%93%8D%E4%BD%9C) 都仍然认为此处会提示使用`checkout`指令
-
-> `restore`和`switch`指令是Git 2.23引入的一个新命令, 目的是解决`checkout`指令在**分支转换**和**恢复文件**功能的耦合
-
-#### 警告
-checkout 是一个危险的指令, 你将会丢失当前对改文件的所有修改, 用起来丝般顺滑, 按下去就没了, 甚至不给你输出任何东西, 请务必谨慎使用!!!

@@ -6,19 +6,15 @@ date: 2020-09-04 18:13:38
 
 ## git remote 查看远程仓库
 列出远程仓库的简称, 通常远程仓库被命名为origin
-> -v: v for verbose 列出更繁杂的信息
+```
+git remote
+git remote -v # verbose 列出更繁杂的信息
+```
 
 ### 添加远程仓库
 ```
 git remote add <shortname e.g. origin> <url e.g. https://github.com/yourname/somerepo.git>
 ```
-
-## git clone 克隆仓库
-当你第一次获取远程仓库时使用, 比如你要拉取vue的源码来学习
-```
-git clone https://github.com/vuejs/vue.git
-```
-克隆之后查看`git remote` , 你会发现origin远程仓库被默认添加了
 
 ### 查看origin远程仓库的详细信息
 ```
@@ -30,6 +26,13 @@ git remote show origin
 ```
 git remote rename origin gitee
 ```
+
+## git clone 克隆仓库
+当你第一次获取远程仓库时使用, 比如你要拉取vue的源码来学习
+```
+git clone https://github.com/vuejs/vue.git
+```
+克隆之后查看`git remote` , 你会发现origin远程仓库被默认添加了
 
 ## git fetch 拉取代码
 当你第二次或以上获取远程仓库时使用, 比如vue的源码更新了, 你要拉取新的代码
@@ -57,21 +60,20 @@ Your branch is behind 'origin/dev' by 19 commits, and can be fast-forwarded.
 
 使用fetch而不使用merge的话, 你将不会看到除status之外的变化
 
-## git merge 合并
+## git merge 合并远程代码
 远程仓库 + 本地仓库 => 工作区 => 本地仓库提交一个merge
 
 当你的本地仓库和远程仓库没有冲突时, git将为你自动合并代码, 但如果出现冲突, 则需要手动解决冲突才能合并
 
 比如你正在修改a文件, 但远程仓库中的a文件被同事修改了, 此时你无法merge, git提示你需要commit或stash来储存你的代码, 否则merge操作将会复写你当前正在修改的代码
 
-至于stash指令是什么, 我们稍后再谈
 ```
 error: Your local changes to the following files would be overwritten by merge:
         a.txt
 Please commit your changes or stash them before you merge.
 ```
 
-我们尝试把a文件commit到本地代码库, 再执行merge
+我们尝试把a文件commit到本地代码库, 再执行merge就可以了
 ```shell script
 git commit -a -m test && git merge
 ```

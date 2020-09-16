@@ -22,6 +22,11 @@ git add <file>
 git add . # 快速地把所有文件状态保存到暂存区
 ```
 
+交互式暂存
+```
+git add -i
+```
+
 暂存区 => 本地仓库
 
 ```
@@ -55,3 +60,14 @@ git mv <fileForm> <fileTo>
 
 
 > [本文参考文档](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%AE%B0%E5%BD%95%E6%AF%8F%E6%AC%A1%E6%9B%B4%E6%96%B0%E5%88%B0%E4%BB%93%E5%BA%93)
+
+## 反向操作
+
+### git reset 
+本地仓库 => 暂存区(不会覆盖工作区, 相当于取消暂存)
+```
+git reset HEAD should_not_add.md
+```
+
+
+
