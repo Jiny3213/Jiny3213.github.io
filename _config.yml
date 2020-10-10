@@ -3,10 +3,10 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Jiny3213 no blog
-subtitle: 'just for share '
-description: '分享技术文章'
-keywords: a b c
+title: Jiny3213的博客
+subtitle: '分享前端及相关技术文章'
+description: 'Jiny3213的技术博客,分享前端技术文章'
+keywords: js,css,html,vue,前端,git
 author: Jiny
 language: zh-CN
 timezone: ''
