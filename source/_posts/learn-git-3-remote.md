@@ -27,6 +27,16 @@ git remote show origin
 git remote rename origin gitee
 ```
 
+### 删除远程仓库
+```
+git remote rm origin
+```
+
+### 修改远程仓库地址
+```
+git remote set-url origin <url>
+```
+
 ## git clone 克隆仓库
 当你第一次获取远程仓库时使用, 比如你要拉取vue的源码来学习
 ```
@@ -86,3 +96,12 @@ git commit -a -m test && git merge
 git push <remote> <branch>
 ```
 比如本博客源码存放在dev分支, 我每次部署博客之后就会使用`git push origin dev`把博客源码推送到dev分支
+
+在github创建仓库时, 会提示你使用-u选项来完成初次push, 此后使用git push时会记住你要push的分支
+
+```
+# 第一次
+git push -u origin master
+# 以后
+git push
+```
