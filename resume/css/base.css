@@ -1,0 +1,111 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft YaHei UI Light", PingFangSC-Regular, Tahoma, "Hiragino Sans GB", "Heiti SC", "Microsoft Yahei", sans-serif;
+    color: #333333
+}
+/* 框架 */
+#resume-framework {
+    width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* 基本信息 及 联系方式 */
+.contact-section {
+    margin: 0;
+}
+
+.contact {
+    display: flex;
+    justify-content: space-between;
+}
+
+#name {
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 1em;
+    margin-bottom: 16px;
+}
+
+.contact-second {
+    line-height: 2em;
+    text-align: right;
+}
+.hover-copy {
+    cursor: copy;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+.title {
+    border-bottom:1px solid gray;
+    margin-bottom: 3px;
+}
+
+.title p {
+    font-size: 18px;
+    margin-bottom: 2px;
+}
+
+.summary {
+    line-height: 1.5em;
+}
+
+.skills-ul {
+    margin-bottom: 2px;
+    padding-inline-start: 0px;
+}
+
+.skills-ul li{
+    display: inline;
+    margin-right: 10px;
+}
+
+/* 工作经历 */
+.experience {
+    line-height: 1.5em;
+}
+.job-title, .time, .company-location {
+    font-size: 13px;
+}
+.job-title {
+    margin-left: 10px;
+    font-weight: bold;
+    font-style:italic;
+}
+.project-name {
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.job-decs-second {
+    display: flex;
+    justify-content: space-between;
+}
+
+.project-title {
+    display: flex;
+    justify-content: space-between;
+}
+.project-title p {
+    margin-bottom: 0;
+}
+
+/* 教育背景 */
+.education-container {
+    margin: 16px 0;
+}
+.education-title {
+    font-weight: bold;
+}
+.education-detail {
+    font-size: 13px;
+    margin-left: 16px;
+}
+
+/* 个人项目 */
+.other-item__info {
+    font-size: 14px;
+}
